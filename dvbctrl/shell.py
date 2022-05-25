@@ -2,7 +2,7 @@
 import sys
 import subprocess
 
-from .errors import errorRaise
+from dvbctrl.errors import errorRaise
 
 
 def listCmd(cmd):
