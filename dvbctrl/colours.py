@@ -3,7 +3,7 @@
 see: https://www.geeksforgeeks.org/print-colours-python-terminal/
 """
 
-from .errors import errorNotify
+from dvbctrl.errors import errorNotify
 
 
 class colours:
