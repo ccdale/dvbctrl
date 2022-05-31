@@ -6,7 +6,7 @@ from dvbctrl.errors import errorNotify, DVBConnectionError, makeError
 
 
 class ControlConnection:
-    """Class implementing a connectgion to a DVBStreamer daemon."""
+    """Class implementing a connection to a DVBStreamer daemon."""
 
     def __init__(self, host, adapter):
         """Create a connection object to talk to a DVBStreamer daemon."""
@@ -15,6 +15,8 @@ class ControlConnection:
             self.adapter = adapter
             self.opened = False
             self.authenticated = False
+            self.welcomemsg = None
+            self.myip = None
             self.lastsuccess = 0
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
@@ -34,15 +36,15 @@ class ControlConnection:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((self.host, self.adapter + 54197))
             self.authenticated = False
-            self.my_ip = self.socket.getsockname()[0]
+            self.myip = self.socket.getsockname()[0]
             self.socketfile = self.socket.makefile("r+")
             self.opened = True
-            error_code, error_message, lines = self.read_response()
-            if error_code != 0:
+            errorcode, errormessage, lines = self.readResponse()
+            if errorcode != 0:
                 self.socket.close()
                 self.opened = False
             else:
-                self.welcomemsg = error_message
+                self.welcomemsg = errormessage
             return self.opened
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
