@@ -58,7 +58,7 @@ class DVBStreamer:
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def getProcessadapter(self, pinfo):
+    def getProcessAdapter(self, pinfo):
         """Extracts the adapter number from the cmd line of the process."""
         try:
             # psutil.process.cmdline should return a list of strings
@@ -80,7 +80,7 @@ class DVBStreamer:
             mypid = None
             for p in psutil.process_iter(["pid", "name", "cmdline"]):
                 if "dvbstreamer" in p.info["name"]:
-                    padapter = getProcessadapter(p.info)
+                    padapter = getProcessAdapter(p.info)
                     if padapter == self.adapter:
                         mypid = int(p.info["pid"])
             return mypid
@@ -97,23 +97,5 @@ class DVBStreamer:
             if pmypid and pmypid == self.pid:
                 return True
             return False
-        except Exception as e:
-            errorNotify(sys.exc_info()[2], e)
-
-
-class Control:
-    def __init__(self, adapter):
-        try:
-            self.adapter = adapter
-            self.user = "dvbctrl"
-            self.password = "dvbctrl"
-            self.connected = False
-        except Exception as e:
-            errorNotify(sys.exc_info()[2], e)
-
-    def connect(self):
-        try:
-            # cmd =
-            pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
