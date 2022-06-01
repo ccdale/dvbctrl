@@ -37,7 +37,7 @@ class ControlConnection:
             self.socket.connect((self.host, self.adapter + 54197))
             self.authenticated = False
             self.myip = self.socket.getsockname()[0]
-            self.socketfile = self.socket.makefile("r+")
+            self.socketfile = self.socket.makefile("r")
             self.opened = True
             errorcode, errormessage, lines = self.readResponse()
             if errorcode != 0:
