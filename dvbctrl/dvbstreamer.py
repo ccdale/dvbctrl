@@ -28,15 +28,17 @@ class DVBStreamer:
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def __del__(self):
+    def stop(self):
         """TODO connect to this instance and issue quit"""
         try:
             if self.isRunning():
                 p = psutil.Process(self.pid)
+                print(f"{p=}")
                 p.terminate()
                 # wait 3 seconds for the process to end
                 # if it is still alive after that, kill it with fire
                 gone, alive = psutil.wait_procs([p], timeout=3)
+                print(f"{gone=}, {alive=}")
                 if len(alive) > 0:
                     p.kill()
         except Exception as e:
