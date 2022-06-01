@@ -3,7 +3,7 @@
 see: https://www.geeksforgeeks.org/print-colours-python-terminal/
 """
 
-from dvbctrl.errors import errorNotify
+# from dvbctrl.errors import errorNotify
 
 
 class colours:
@@ -49,17 +49,3 @@ class colours:
         purple = "\033[45m"
         cyan = "\033[46m"
         lightgray = "\033[47m"
-
-
-def main():
-    try:
-        print(colours.bg.green, "bg.green", colours.fg.red, "fg.red")
-        print(colours.reset)
-        print(colours.bg.lightgray, "bg.lightgray", colours.fg.red, "fg.red")
-        print(colours.reset)
-    except Exception as e:
-        errorNotify(sys.exc_info()[2], e)
-
-
-if __name__ == "__main__":
-    main()
