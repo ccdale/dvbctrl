@@ -33,12 +33,12 @@ class DVBStreamer:
         try:
             if self.isRunning():
                 p = psutil.Process(self.pid)
-                print(f"{p=}")
+                # print(f"{p=}")
                 p.terminate()
                 # wait 3 seconds for the process to end
                 # if it is still alive after that, kill it with fire
                 gone, alive = psutil.wait_procs([p], timeout=3)
-                print(f"{gone=}, {alive=}")
+                # print(f"{gone=}, {alive=}")
                 if len(alive) > 0:
                     p.kill()
         except Exception as e:
@@ -82,10 +82,10 @@ class DVBStreamer:
             mypid = None
             for p in psutil.process_iter(["pid", "name", "cmdline"]):
                 if "dvbstreamer" in p.info["name"]:
-                    print(f"looking for adapter in {p.info}")
+                    # print(f"looking for adapter in {p.info}")
                     padapter = self.getProcessAdapter(p.info)
-                    print(f"{padapter=}")
-                    print(f"{self.adapter=}")
+                    # print(f"{padapter=}")
+                    # print(f"{self.adapter=}")
                     if padapter == self.adapter:
                         mypid = int(p.info["pid"])
             return mypid
@@ -97,10 +97,10 @@ class DVBStreamer:
             if self.pidfn.exists():
                 with open(self.pidfn, "r") as ifn:
                     spid = ifn.read()
-                print(f"read pid file {spid}")
+                # print(f"read pid file {spid}")
                 self.pid = int(spid)
             pmypid = self.findMyProcessPid()
-            print(f"my process pid {pmypid}")
+            # print(f"my process pid {pmypid}")
             if pmypid and pmypid == self.pid:
                 return True
             return False
