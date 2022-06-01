@@ -1,7 +1,6 @@
 """dvbstreamer commands."""
 import os
 from pathlib import Path
-import signal
 import sys
 
 import psutil
