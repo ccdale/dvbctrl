@@ -81,7 +81,7 @@ class DVBStreamer:
             for p in psutil.process_iter(["pid", "name", "cmdline"]):
                 if "dvbstreamer" in p.info["name"]:
                     print(f"looking for adapter in {p.info}")
-                    padapter = getProcessAdapter(p.info)
+                    padapter = self.getProcessAdapter(p.info)
                     print(f"{padapter=}")
                     print(f"{self.adapter=}")
                     if padapter == self.adapter:
@@ -97,7 +97,7 @@ class DVBStreamer:
                     spid = ifn.read()
                 print(f"read pid file {spid}")
                 self.pid = int(spid)
-            pmypid = findMyProcessPid()
+            pmypid = self.findMyProcessPid()
             print(f"my process pid {pmypid}")
             if pmypid and pmypid == self.pid:
                 return True
