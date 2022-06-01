@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "dvbctrl"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["ccdale <chris.allison@hivehome.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+psutil = "^5.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6"
