@@ -9,14 +9,6 @@ from dvbctrl.errors import errorNotify
 from dvbctrl.shell import shellCommand
 
 
-def startDvbStreamer(cfg, adapter):
-    try:
-        cmd = "dvbstreamer -a {adapter} -d -D -u cfg['user'] -p cfg['password']"
-        data, err = shellCommand(cmd)
-    except Exception as e:
-        errorNotify(sys.exc_info()[2], e)
-
-
 class DVBStreamer:
     def __init__(self, adapter):
         try:
