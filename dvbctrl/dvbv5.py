@@ -50,6 +50,7 @@ class Recorder:
             chanfn = f"{tzap}/dvb_channel.conf"
             cmd = f"dvbv5-zap -c {chanfn} -a {self.adapter} -p -r"
             cmd += f" -o {self.fqfn} -t {self.length} {self.channel}"
+            print(f"{cmd=}")
             data, err = shellCommand(cmd)
             print(f"{data=}\n{err=}")
             print(f"recording to {self.fqfn} completed")
