@@ -7,8 +7,8 @@ from dvbctrl.errors import errorNotify, errorExit
 def main():
     try:
         r = Recorder()
-        title = "Port of Escape"
-        channel = "TalkingPictures TV"
+        title = "the battle for hill 112"
+        channel = "Forces TV"
         start = 1654263674
         stop = 1654264274
         r.setProgram(channel, title, start, stop)
