@@ -32,7 +32,7 @@ class Recorder:
             fchan = self.channel.replace(" ", "_")
             ftitle = self.title.replace(" ", "_")
             dt = datetime.fromtimestamp(start)
-            fn = f"{dt.year}{dt.month:0>2}{dt.day:0>2}T{dt.hour:0>2}{dt.min:0>2}"
+            fn = f"{dt.year}{dt.month:0>2}{dt.day:0>2}T{dt.hour:0>2}{dt.minute:0>2}"
             fn += f"-{fchan}-{ftitle}.ts"
             self.fdir = Path(self.basefd / ftitle)
             self.fdir.mkdir(parents=True, exist_ok=True)
