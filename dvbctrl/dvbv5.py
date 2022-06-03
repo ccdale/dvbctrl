@@ -48,8 +48,10 @@ class Recorder:
             home = os.environ.get("HOME", os.path.expanduser("~/"))
             tzap = f"{home}/.tzap"
             chanfn = f"{tzap}/dvb_channel.conf"
-            cmd = f"dvbv5-zap -c {chanfn} -a {self.adapter} -p -r"
-            cmd += f" -o {self.fqfn} -t {self.length} '{self.channel}'"
+            scmd = f"dvbv5-zap -c {chanfn} -a {self.adapter} -p -r"
+            scmd += f" -o {self.fqfn} -t {self.length}"
+            cmd = scmd.split()
+            cmd.append(f"'{self.channel}'")
             print(f"{cmd=}")
             data, err = shellCommand(cmd)
             print(f"{data=}\n{err=}")

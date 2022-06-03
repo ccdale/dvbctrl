@@ -7,10 +7,10 @@ from dvbctrl.errors import errorNotify, errorExit
 def main():
     try:
         r = Recorder()
-        title = "The Seventh Survivor"
+        title = "Port of Escape"
         channel = "TalkingPictures TV"
-        start = 1654254192
-        stop = 1654255392
+        start = 1654263674
+        stop = 1654264274
         r.setProgram(channel, title, start, stop)
         r.zapRecord()
     except Exception as e:
