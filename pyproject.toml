@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dvbctrl"
-version = "0.2.1"
+version = "0.2.2"
 description = ""
 authors = ["ccdale <chris.allison@hivehome.com>"]
 
