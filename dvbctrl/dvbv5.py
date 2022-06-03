@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 
 
-from dvbctrl.errors import errorNotify, errorExit
+from dvbctrl.errors import errorNotify
 from dvbctrl.shell import shellCommand
 
 class Recorder():
@@ -41,11 +41,14 @@ class Recorder():
         try:
             if not self.fqfn:
                 raise Exception("Current program not yet setup")
+            print(f"starting a recording to {self.fqfn}")
             home = os.environ.get("HOME", os.path.expanduser("~/"))
             tzap = f"{home}/.tzap"
             chanfn = f"{tzap}/dvb_channel.conf"
             cmd = f"dvbv5-zap -c {chanfn} -a {self.adapter} -p -r"
             cmd += f" -o {self.fqfn} -t {self.length} {self.channel}"
             data, err = shellCommand(cmd)
+            print(f"{data=}\n{err=}")
+            print(f"recording to {self.fqfn} completed")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
