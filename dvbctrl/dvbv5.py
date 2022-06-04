@@ -51,7 +51,7 @@ class Recorder:
             scmd = f"dvbv5-zap -c {chanfn} -a {self.adapter} -p -r"
             scmd += f" -o {self.fqfn} -t {self.length}"
             cmd = scmd.split()
-            cmd.append(f"'{self.channel}'")
+            cmd.append(self.channel)
             print(f"{cmd=}")
             data, err = shellCommand(cmd)
             print(f"{data=}\n{err=}")
