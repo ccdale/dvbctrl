@@ -8,15 +8,17 @@ from dvbctrl.errors import errorNotify, DVBConnectionError, makeError
 class ControlConnection:
     """Class implementing a connection to a DVBStreamer daemon."""
 
-    def __init__(self, host, adapter):
+    def __init__(self, host, adaptor, user="dvbctrl", passw="dvbctrl"):
         """Create a connection object to talk to a DVBStreamer daemon."""
         try:
             self.host = host
-            self.adapter = adapter
+            self.adaptor = adaptor
             self.opened = False
             self.authenticated = False
             self.welcomemsg = None
             self.myip = None
+            self.username = user
+            self.password = passw
             self.lastsuccess = 0
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
@@ -34,7 +36,7 @@ class ControlConnection:
             if self.opened:
                 return self.opened
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.connect((self.host, self.adapter + 54197))
+            self.socket.connect((self.host, self.adaptor + 54197))
             self.authenticated = False
             self.myip = self.socket.getsockname()[0]
             self.socketfile = self.socket.makefile("r")
@@ -122,12 +124,36 @@ class ControlConnection:
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def authenticate(self, username, password):
+    def authenticate(self, username=None, password=None):
         """
         Authenticate the connection allowing it to execute more commands.
         """
         try:
+            if username is None:
+                username = self.username
+            if password is None:
+                password = self.password
             errormessage, lines = self.executeCommand(f'auth "{username}" "{password}"')
             self.authenticated = True
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def doCommand(self, cmd):
+        """
+        Open (if not opened)
+        Auth (if not authenticated)
+        run 'cmd' command
+        """
+        try:
+            if not self.opened:
+                opened = self.open()
+                if not openened:
+                    raise Exception(
+                        f"failed to open connection to adaptor {self.adaptor}"
+                    )
+            if not self.authenticated:
+                self.authenticate()
+            errmsg, lines = self.executeCommand(cmd)
+            return (errmsg, lines)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
