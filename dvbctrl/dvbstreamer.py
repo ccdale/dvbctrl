@@ -39,6 +39,7 @@ class DVBStreamer:
     def start(self):
         try:
             hostname = os.uname().nodename
+            hostname = "127.0.0.1"
             cmd = f"dvbstreamer -i {hostname} -a {self.adaptor} -d -D"
             cmd += f" -u {self.user} -p {self.password}"
             data, err = shellCommand(cmd)

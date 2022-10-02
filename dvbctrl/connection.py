@@ -20,6 +20,7 @@ class ControlConnection:
         try:
             if host is None:
                 host = os.uname().nodename
+            host = "127.0.0.1"
             self.host = host
             self.adaptor = adaptor
             self.opened = False
@@ -44,15 +45,16 @@ class ControlConnection:
         try:
             if self.opened:
                 return self.opened
-            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.connect((self.host, self.adaptor + 54197))
+            self.sckt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print(f"{self.host=}")
+            self.sckt.connect((self.host, self.adaptor + 54197))
             self.authenticated = False
-            self.myip = self.socket.getsockname()[0]
-            self.socketfile = self.socket.makefile("r")
+            self.myip = self.sckt.getsockname()[0]
+            self.scktfile = self.sckt.makefile("r")
             self.opened = True
             errorcode, errormessage, lines = self.readResponse()
             if errorcode != 0:
-                self.socket.close()
+                self.sckt.close()
                 self.opened = False
                 print(
                     f"error opening connection:\n{errorcode=}\n{errormessage=}\n{lines=}"
@@ -72,8 +74,8 @@ class ControlConnection:
             errorNotify(sys.exc_info()[2], e)
         finally:
             if self.opened:
-                self.socketfile.close()
-                self.socket.close()
+                self.scktfile.close()
+                self.sckt.close()
                 self.opened = False
 
     def sendCommand(self, command):
@@ -84,8 +86,8 @@ class ControlConnection:
         try:
             if not self.opened:
                 raise DVBConnectionError("not connected")
-            self.socketfile.write(f"{command}\n")
-            self.socketfile.flush()
+            self.scktfile.write(f"{command}\n")
+            self.scktfile.flush()
             self.lastsuccess = time.time()
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
@@ -101,7 +103,7 @@ class ControlConnection:
             errorcode = -1
             errormessage = ""
             while morelines:
-                line = self.socketfile.readline()
+                line = self.scktfile.readline()
                 if line.startswith("DVBStreamer/"):
                     morelines = False
                     sections = line.split("/")
