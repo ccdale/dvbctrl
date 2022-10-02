@@ -1,4 +1,5 @@
 import pytest
+import time
 
 from dvbctrl import __version__
 from dvbctrl.commands import DVBCommand
@@ -6,21 +7,24 @@ from dvbctrl.connection import ControlConnection
 from dvbctrl.dvbstreamer import DVBStreamer
 
 
-@pytest.fixture
-def dvbobj(scope="module"):
+@pytest.fixture(scope="module")
+def dvbobj():
     dvb = DVBStreamer(0)
     dvb.start()
+    # time.sleep(1)  # give it some time to settle
     yield dvb
     dvb.stop()
 
 
 def test_version():
-    assert __version__ == "0.2.5"
+    assert __version__ == "0.2.6"
+
+
+def test_isrunning(dvbobj):
+    assert True == dvbobj.isRunning()
 
 
 def test_connect(dvbobj):
-    # dvb = DVBStreamer(0)
-    # dvb.start()
     cc = ControlConnection(0)
     cc.open()
     assert cc.opened == True
@@ -28,9 +32,8 @@ def test_connect(dvbobj):
 
 
 def test_lslcn(dvbobj):
-    # dvb = DVBStreamer(0)
-    # dvb.start()
     dvbc = DVBCommand()
+    dvbc.open()
     lines = dvbc.lslcn()
-    assert lines == "hello"
-    # dvb.stop()
+    assert True == isinstance(lines, list)
+    assert lines[0] == "   1 : BBC ONE East E"

@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 import sys
+import time
 
 import psutil
 
@@ -43,6 +44,8 @@ class DVBStreamer:
             cmd = f"dvbstreamer -i {hostname} -a {self.adaptor} -d -D"
             cmd += f" -u {self.user} -p {self.password}"
             data, err = shellCommand(cmd)
+            # give the dvbstreamer time to start up
+            time.sleep(3)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 

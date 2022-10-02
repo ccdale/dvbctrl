@@ -50,7 +50,7 @@ class ControlConnection:
             self.sckt.connect((self.host, self.adaptor + 54197))
             self.authenticated = False
             self.myip = self.sckt.getsockname()[0]
-            self.scktfile = self.sckt.makefile("r")
+            self.scktfile = self.sckt.makefile(mode="rw")
             self.opened = True
             errorcode, errormessage, lines = self.readResponse()
             if errorcode != 0:
