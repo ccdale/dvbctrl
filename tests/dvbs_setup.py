@@ -4,7 +4,7 @@ from dvbctrl.dvbstreamer import DVBStreamer
 
 
 @pytest.fixture
-def dvbobj(scope="module"):
+def dvbobj(scope="session"):
     dvb = DVBStreamer(0)
     dvb.start()
     yield dvb
