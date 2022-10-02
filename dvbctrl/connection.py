@@ -1,16 +1,25 @@
+import os
 import socket
 import sys
 import time
 
-from dvbctrl.errors import errorNotify, DVBConnectionError, makeError
+from dvbctrl.errors import (
+    errorNotify,
+    errorRaise,
+    errorExit,
+    DVBConnectionError,
+    makeError,
+)
 
 
 class ControlConnection:
     """Class implementing a connection to a DVBStreamer daemon."""
 
-    def __init__(self, host, adaptor, user="dvbctrl", passw="dvbctrl"):
+    def __init__(self, adaptor, host=None, user="dvbctrl", passw="dvbctrl"):
         """Create a connection object to talk to a DVBStreamer daemon."""
         try:
+            if host is None:
+                host = os.uname().nodename
             self.host = host
             self.adaptor = adaptor
             self.opened = False
@@ -45,6 +54,9 @@ class ControlConnection:
             if errorcode != 0:
                 self.socket.close()
                 self.opened = False
+                print(
+                    f"error opening connection:\n{errorcode=}\n{errormessage=}\n{lines=}"
+                )
             else:
                 self.welcomemsg = errormessage
             return self.opened
@@ -147,7 +159,7 @@ class ControlConnection:
         try:
             if not self.opened:
                 opened = self.open()
-                if not openened:
+                if not opened:
                     raise Exception(
                         f"failed to open connection to adaptor {self.adaptor}"
                     )
