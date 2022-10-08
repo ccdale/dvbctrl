@@ -46,6 +46,10 @@ class DVBStreamer:
             data, err = shellCommand(cmd)
             # give the dvbstreamer time to start up
             time.sleep(3)
+            # isRunning tests that there is a pid file
+            # and the pid in the pid file corresponds
+            # to the pid found in the process table
+            return self.isRunning()
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 

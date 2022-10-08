@@ -54,4 +54,4 @@ def test_lsservices_no_mux(dvbobj):
     errmsg, lines = dvbc.lsservices()
     assert errmsg == "OK"
     assert True == isinstance(lines, list)
-    assert lines[0] == "   1 : BBC ONE East E"
+    assert lines[0] == "BBC ONE East E"
