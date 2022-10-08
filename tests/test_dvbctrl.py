@@ -34,6 +34,23 @@ def test_connect(dvbobj):
 def test_lslcn(dvbobj):
     dvbc = DVBCommand()
     dvbc.open()
-    lines = dvbc.lslcn()
+    errmsg, lines = dvbc.lslcn()
+    assert errmsg.strip().split()[1] == "channels"
     assert True == isinstance(lines, list)
+    assert lines[0] == "   1 : BBC ONE East E"
+
+
+def test_lsmfs_nofilters(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    errmsg, lines = dvbc.lsmfs()
+    assert lines == []
+    assert errmsg == "OK"
+
+def test_lsservices_no_mux(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    errmsg, lines = dvbc.lsservices()
+    assert errmsg == "OK"
+    assert true isinstance(lines, list)
     assert lines[0] == "   1 : BBC ONE East E"

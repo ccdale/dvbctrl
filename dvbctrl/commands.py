@@ -86,7 +86,22 @@ class DVBCommand(ControlConnection):
     def lslcn(self):
         """List the logical channel numbers to services."""
         try:
-            errmsg, lines = self.doCommand("lslcn")
-            return lines
+            return self.doCommand("lslcn")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def lsmfs(self):
+        """List current filters"""
+        try:
+            return self.doCommand("lsmfs")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def lsservices(self, mux=None):
+        try:
+            if mux is None:
+                return self.doCommand("lsservices")
+            else:
+                return self.doCommand(f"lsservices {mux}")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
