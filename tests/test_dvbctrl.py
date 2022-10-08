@@ -61,3 +61,21 @@ def test_lsservices_no_mux(dvbobj):
     assert errmsg == "OK"
     assert True == isinstance(lines, list)
     assert lines[0] == "BBC ONE East E"
+
+
+def test_lsservices_mux(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    errmsg, lines = dvbc.lsservices(1653391414)
+    assert errmsg == "OK"
+    assert True == isinstance(lines, list)
+    assert lines[0] == "5STAR"
+
+
+def test_lsmuxes(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    errmsg, lines = dvbc.lsmuxes()
+    assert errmsg == "OK"
+    assert True == isinstance(lines, list)
+    assert lines[0] == "1653391412"

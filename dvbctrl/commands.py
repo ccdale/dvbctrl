@@ -105,3 +105,9 @@ class DVBCommand(ControlConnection):
                 return self.doCommand(f"lsservices {mux}")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
+
+    def lsmuxes(self):
+        try:
+            return self.doCommand("lsmuxes")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
