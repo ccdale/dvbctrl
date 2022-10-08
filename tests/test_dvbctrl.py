@@ -47,10 +47,11 @@ def test_lsmfs_nofilters(dvbobj):
     assert lines == []
     assert errmsg == "OK"
 
+
 def test_lsservices_no_mux(dvbobj):
     dvbc = DVBCommand()
     dvbc.open()
     errmsg, lines = dvbc.lsservices()
     assert errmsg == "OK"
-    assert true isinstance(lines, list)
+    assert True == isinstance(lines, list)
     assert lines[0] == "   1 : BBC ONE East E"
