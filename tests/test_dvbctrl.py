@@ -79,3 +79,12 @@ def test_lsmuxes(dvbobj):
     assert errmsg == "OK"
     assert True == isinstance(lines, list)
     assert lines[0] == "1653391412"
+
+
+def test_lssfs(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    errmsg, lines = dvbc.lssfs()
+    assert errmsg == "OK"
+    assert True == isinstance(lines, list)
+    assert lines[0] == "1653391412"

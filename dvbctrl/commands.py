@@ -111,3 +111,9 @@ class DVBCommand(ControlConnection):
             return self.doCommand("lsmuxes")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
+
+    def lssfs(self):
+        try:
+            return self.doCommand("lssfs")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
