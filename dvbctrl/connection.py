@@ -46,7 +46,7 @@ class ControlConnection:
             if self.opened:
                 return self.opened
             self.sckt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            print(f"{self.host=}")
+            # print(f"{self.host=}")
             self.sckt.connect((self.host, self.adaptor + 54197))
             self.authenticated = False
             self.myip = self.sckt.getsockname()[0]

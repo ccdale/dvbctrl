@@ -117,3 +117,19 @@ class DVBCommand(ControlConnection):
             return self.doCommand("lssfs")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
+
+    def lspids(self, service):
+        """returns the pids for a service
+
+        lines=[
+        '4 PIDs for "5STAR"',
+        '6673: { type: "ITU-T Rec. H.262 | ISO/IEC 13818-2 Video or ISO/IEC 11172-2 constrained parameter video stream" }',
+        '6674: { type: "ISO/IEC 11172 Audio" }',
+        '6675: { type: "ISO/IEC 11172 Audio" }',
+        '6678: { type: "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 PES packets containing private data" }'
+        ]
+        """
+        try:
+            return self.doCommand(f"lspids {service}")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)

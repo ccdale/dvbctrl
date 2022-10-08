@@ -87,4 +87,13 @@ def test_lssfs(dvbobj):
     errmsg, lines = dvbc.lssfs()
     assert errmsg == "OK"
     assert True == isinstance(lines, list)
-    assert lines[0] == "1653391412"
+    assert lines[0] == "<Primary>"
+
+
+def test_lspids(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    errmsg, lines = dvbc.lspids("5STAR")
+    assert errmsg == "OK"
+    assert True == isinstance(lines, list)
+    assert lines[0] == '4 PIDs for "5STAR"'
