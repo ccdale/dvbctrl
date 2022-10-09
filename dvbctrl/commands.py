@@ -83,26 +83,64 @@ class DVBCommand(ControlConnection):
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def lslcn(self):
-        """List the logical channel numbers to services."""
+    def select(self, channel):
+        """Tunes to the required channel on the <Primary> service filter"""
         try:
-            chans = []
-            lines = self.doCommand("lslcn")
-            for line in lines:
-                data = line.split(":")
-                if len(data) == 2:
-                    chans.append({data[0].strip(): data[1].strip()})
-                else:
-                    print(f"lslcn extraneous {line=}")
-            return chans
+            return self.doCommand(f"select '{channel}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def lsmfs(self):
-        """List current filters"""
+    def setmrl(self, mrl):
         try:
-            cmd = "lsmfs"
-            return self.doCommand(cmd)
+            return self.doCommand(f"setmrl '{mrl}'")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def getmrl(self):
+        try:
+            return self.doCommand("getmrl")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def addsf(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def rmsf(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def lssfs(self):
+        try:
+            return self.doCommand("lssfs")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def setsfmrl(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def getsfmrl(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def setsffavsonly(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def getsfavsonly(self):
+        try:
+            pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
@@ -119,14 +157,8 @@ class DVBCommand(ControlConnection):
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def lssfs(self):
-        try:
-            return self.doCommand("lssfs")
-        except Exception as e:
-            errorNotify(sys.exc_info()[2], e)
-
-    def lspids(self, service):
-        """returns the pids for a service
+    def lspids(self, channel):
+        """returns the pids for a channel
 
         lines=[
         '4 PIDs for "5STAR"',
@@ -137,6 +169,83 @@ class DVBCommand(ControlConnection):
         ]
         """
         try:
-            return self.doCommand(f"lspids {service}")
+            return self.doCommand(f"lspids {channel}")
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def current(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def serviceinfo(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def muxinfo(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def stats(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def festatus(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def scan(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def cancelscan(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def lslcn(self):
+        """List the logical channel numbers to services."""
+        try:
+            chans = []
+            lines = self.doCommand("lslcn")
+            for line in lines:
+                data = line.split(":")
+                if len(data) == 2:
+                    chans.append({data[0].strip(): data[1].strip()})
+                else:
+                    print(f"lslcn extraneous {line=}")
+            return chans
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def findlcn(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def selectlcn(self):
+        try:
+            pass
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def lsmfs(self):
+        """List current filters"""
+        try:
+            cmd = "lsmfs"
+            return self.doCommand(cmd)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)

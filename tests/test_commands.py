@@ -1,3 +1,6 @@
+import os
+import time
+
 from dvbctrl.commands import DVBCommand
 
 
@@ -61,3 +64,31 @@ def test_lspids(dvbobj):
     assert True == isinstance(lines, list)
     assert lines[0] == '4 PIDs for "5STAR"'
     dvbc.close()
+
+
+def test_select(dvbobj):
+    dvbc = DVBCommand()
+    dvbc.open()
+    lines = dvbc.select("BBC TWO")
+    print(f"{lines=}")
+    assert True == isinstance(lines, list)
+    assert lines[0] == '233a.1047.10bf : "BBC TWO"'
+    dvbc.close()
+
+
+def test_set_get_mrl(dvbobj):
+    # after 5 seconds the file should be greater than 1MB
+    fn = "/tmp/test-bbc-two.ts"
+    dvbc = DVBCommand()
+    dvbc.open()
+    lines = dvbc.select("BBC TWO")
+    lines = dvbc.setmrl(f"file://{fn}")
+    time.sleep(5)
+    lines = dvbc.getmrl()
+    assert True == isinstance(lines, list)
+    assert lines[0] == f"file://{fn}"
+    lines = dvbc.setmrl("null")
+    dvbc.close()
+    sz = os.stat(fn).st_size
+    assert sz > 1024000
+    os.unlink(fn)
