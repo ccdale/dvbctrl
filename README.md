@@ -5,11 +5,11 @@
 ```python
 from dvbctrl.dvbstreamer import DVBStreamer
 
-adaptor = 0
-dvbs = DVBStreamer(adaptor)
+adapter = 0
+dvbs = DVBStreamer(adapter)
 running = dvbs.start()
 if not running:
-    raise Exception(f"Failed to start dvbstreamer on adaptor {adaptor}")
+    raise Exception(f"Failed to start dvbstreamer on adapter {adapter}")
 ```
 
 ## stopping
@@ -17,8 +17,8 @@ if not running:
 ```python
 from dvbctrl.dvbstreamer import DVBStreamer
 
-adaptor = 0
-dvbs = DVBStreamer(adaptor)
+adapter = 0
+dvbs = DVBStreamer(adapter)
 
 ...
 

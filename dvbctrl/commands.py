@@ -77,32 +77,39 @@ from dvbctrl.errors import errorNotify
 class DVBCommand(ControlConnection):
     """Class implementing control commands for a DVBStreamer daemon."""
 
-    def __init__(self, adaptor=0, host=None, user="dvbctrl", passw="dvbctrl"):
+    def __init__(self, adapter=0, host=None, user="dvbctrl", passw="dvbctrl"):
         try:
-            super().__init__(adaptor, host, user, passw)
+            super().__init__(adapter, host, user, passw)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def lslcn(self):
         """List the logical channel numbers to services."""
         try:
-            return self.doCommand("lslcn")
+            chans = []
+            lines = self.doCommand("lslcn")
+            for line in lines:
+                data = line.split(":")
+                if len(data) == 2:
+                    chans.append({data[0].strip(): data[1].strip()})
+                else:
+                    print(f"lslcn extraneous {line=}")
+            return chans
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def lsmfs(self):
         """List current filters"""
         try:
-            return self.doCommand("lsmfs")
+            cmd = "lsmfs"
+            return self.doCommand(cmd)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def lsservices(self, mux=None):
         try:
-            if mux is None:
-                return self.doCommand("lsservices")
-            else:
-                return self.doCommand(f"lsservices {mux}")
+            cmd = "lsservices" if mux is None else f"lsservices {mux}"
+            return self.doCommand(cmd)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 

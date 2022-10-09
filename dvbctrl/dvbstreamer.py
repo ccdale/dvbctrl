@@ -11,9 +11,9 @@ from dvbctrl.shell import shellCommand
 
 
 class DVBStreamer:
-    def __init__(self, adaptor):
+    def __init__(self, adapter):
         try:
-            self.adaptor = int(adaptor)
+            self.adapter = int(adapter)
             self.user = "dvbctrl"
             self.password = "dvbctrl"
             self.running = False
@@ -41,7 +41,7 @@ class DVBStreamer:
         try:
             hostname = os.uname().nodename
             hostname = "127.0.0.1"
-            cmd = f"dvbstreamer -i {hostname} -a {self.adaptor} -d -D"
+            cmd = f"dvbstreamer -i {hostname} -a {self.adapter} -d -D"
             cmd += f" -u {self.user} -p {self.password}"
             data, err = shellCommand(cmd)
             # give the dvbstreamer time to start up
@@ -55,26 +55,26 @@ class DVBStreamer:
 
     def setPidFile(self):
         try:
-            pidfn = f"dvbstreamer-{self.adaptor}.pid"
+            pidfn = f"dvbstreamer-{self.adapter}.pid"
             fqpidfn = os.path.expanduser(f"~/.dvbstreamer/{pidfn}")
             self.pidfn = Path(fqpidfn)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def getProcessadaptor(self, pinfo):
-        """Extracts the adaptor number from the cmd line of the process."""
+    def getProcessadapter(self, pinfo):
+        """Extracts the adapter number from the cmd line of the process."""
         try:
             # psutil.process.cmdline should return a list of strings
             # we are looking for the value after a '-a'
-            padaptor = None
+            padapter = None
             pcn = -1
             for cn, xstr in enumerate(pinfo["cmdline"]):
                 if xstr == "-a":
                     pcn = cn + 1
                     break
             if pcn > 0:
-                padaptor = int(pinfo["cmdline"][pcn])
-            return padaptor
+                padapter = int(pinfo["cmdline"][pcn])
+            return padapter
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
@@ -83,11 +83,11 @@ class DVBStreamer:
             mypid = None
             for p in psutil.process_iter(["pid", "name", "cmdline"]):
                 if "dvbstreamer" in p.info["name"]:
-                    # print(f"looking for adaptor in {p.info}")
-                    padaptor = self.getProcessadaptor(p.info)
-                    # print(f"{padaptor=}")
-                    # print(f"{self.adaptor=}")
-                    if padaptor == self.adaptor:
+                    # print(f"looking for adapter in {p.info}")
+                    padapter = self.getProcessadapter(p.info)
+                    # print(f"{padapter=}")
+                    # print(f"{self.adapter=}")
+                    if padapter == self.adapter:
                         mypid = int(p.info["pid"])
             return mypid
         except Exception as e:

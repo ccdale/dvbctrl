@@ -15,14 +15,14 @@ from dvbctrl.errors import (
 class ControlConnection:
     """Class implementing a connection to a DVBStreamer daemon."""
 
-    def __init__(self, adaptor, host=None, user="dvbctrl", passw="dvbctrl"):
+    def __init__(self, adapter, host=None, user="dvbctrl", passw="dvbctrl"):
         """Create a connection object to talk to a DVBStreamer daemon."""
         try:
             if host is None:
                 host = os.uname().nodename
             host = "127.0.0.1"
             self.host = host
-            self.adaptor = adaptor
+            self.adapter = adapter
             self.opened = False
             self.authenticated = False
             self.welcomemsg = None
@@ -47,7 +47,7 @@ class ControlConnection:
                 return self.opened
             self.sckt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             # print(f"{self.host=}")
-            self.sckt.connect((self.host, self.adaptor + 54197))
+            self.sckt.connect((self.host, self.adapter + 54197))
             self.authenticated = False
             self.myip = self.sckt.getsockname()[0]
             self.scktfile = self.sckt.makefile(mode="rw")
@@ -163,11 +163,14 @@ class ControlConnection:
                 opened = self.open()
                 if not opened:
                     raise Exception(
-                        f"failed to open connection to adaptor {self.adaptor}"
+                        f"failed to open connection to adapter {self.adapter}"
                     )
             if not self.authenticated:
                 self.authenticate()
             errmsg, lines = self.executeCommand(cmd)
-            return (errmsg, lines)
+            if errmsg != "OK":
+                msg = f"possible error with command {cmd}: {errmsg=}"
+                lines.append(msg)
+            return lines
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
