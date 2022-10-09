@@ -133,18 +133,17 @@ class DVBCommand(ControlConnection):
             errorNotify(sys.exc_info()[2], e)
 
     def getsfmrl(self, name):
-        """get the output file for then named service filter"""
+        """get the output file for the named service filter"""
         try:
-            # TODO
-            pass
+            return self.doCommand(f"getsfmrl '{name}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def setsffavsonly(self):
-        """Enable/disable streaming of Audio/Video/Subtitles only"""
+    def setsffavsonly(self, name, on=True):
+        """Enable/disable streaming of Audio/Video/Subtitles only for the named service filter"""
         try:
-            # TODO
-            pass
+            onoff = "on" if on else "off"
+            return self.doCommand(f"setsffavsonly '{name}' {onoff}")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
@@ -156,6 +155,7 @@ class DVBCommand(ControlConnection):
             errorNotify(sys.exc_info()[2], e)
 
     def lsservices(self, mux=None):
+        """List all services or for a specific multiplex"""
         try:
             cmd = "lsservices" if mux is None else f"lsservices {mux}"
             return self.doCommand(cmd)
@@ -163,6 +163,7 @@ class DVBCommand(ControlConnection):
             errorNotify(sys.exc_info()[2], e)
 
     def lsmuxes(self):
+        """List multiplexes"""
         try:
             return self.doCommand("lsmuxes")
         except Exception as e:
@@ -185,51 +186,52 @@ class DVBCommand(ControlConnection):
             errorNotify(sys.exc_info()[2], e)
 
     def current(self):
+        """Print out the service currently being streamed"""
         try:
-            # TODO
-            pass
+            return self.doCommand("current")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def serviceinfo(self):
+    def serviceinfo(self, name):
+        """Display information about a service"""
         try:
-            # TODO
-            pass
+            return self.doCommand(f"serviceinfo '{name}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def muxinfo(self):
+    def muxinfo(self, mux):
+        """Display information about a mux"""
         try:
-            # TODO
-            pass
+            return self.doCommand(f"muxinfo {mux}")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def stats(self):
+        """Display the stats for the PAT,PMT and service PID filters"""
         try:
-            # TODO
-            pass
+            return self.doCommand("stats")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def festatus(self):
+        """Displays the status of the tuner"""
         try:
-            # TODO
-            pass
+            return self.doCommand("festatus")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def scan(self):
+    def scan(self, mux=None):
+        """Scan the specified multiplex(es) for services"""
         try:
-            # TODO
-            pass
+            cmd = "scan all" if mux is None else f"scan {mux}"
+            return self.doCommand(cmd)
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def cancelscan(self):
+        """Cancel the any scan that is in progress"""
         try:
-            # TODO
-            pass
+            return self.doCommand("cancelscan")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
@@ -248,17 +250,17 @@ class DVBCommand(ControlConnection):
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def findlcn(self):
+    def findlcn(self, lcn):
+        """Find the service for a logical channel number"""
         try:
-            # TODO
-            pass
+            return self.doCommand(f"findlcn {lcn}")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def selectlcn(self):
+    def selectlcn(self, lcn):
+        """Select the service for the <Primary> filter from a logical channel number"""
         try:
-            # TODO
-            pass
+            return self.doCommand(f"selectlcn {lcn}")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
