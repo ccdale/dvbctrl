@@ -80,13 +80,24 @@ class DVBCommand(ControlConnection):
     def __init__(self, adapter=0, host=None, user="dvbctrl", passw="dvbctrl"):
         try:
             super().__init__(adapter, host, user, passw)
+            self.mux = None
+            self.channel = None
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def setStatus():
+        try:
+            # TODO
+            lines = self.festatus()
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def select(self, channel):
         """Tunes to the required channel on the <Primary> service filter"""
         try:
-            return self.doCommand(f"select '{channel}'")
+            lines = self.doCommand(f"select '{channel}'")
+            self.channel = channel
+            return lines
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
