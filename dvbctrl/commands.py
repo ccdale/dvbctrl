@@ -91,56 +91,67 @@ class DVBCommand(ControlConnection):
             errorNotify(sys.exc_info()[2], e)
 
     def setmrl(self, mrl):
+        """set the output file for the primary service filter"""
         try:
             return self.doCommand(f"setmrl '{mrl}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def getmrl(self):
+        """return the output file for the primary service filter"""
         try:
             return self.doCommand("getmrl")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def addsf(self):
+    def addsf(self, name):
+        """add a service filter by name"""
         try:
-            pass
+            return self.doCommand(f"addsf '{name}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def rmsf(self):
+    def rmsf(self, name):
+        """removes a service filter by name"""
         try:
-            pass
+            return self.doCommand(f"rmsf '{name}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def lssfs(self):
+        """list the current service filters"""
         try:
             return self.doCommand("lssfs")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def setsfmrl(self):
+    def setsfmrl(self, name, fn):
+        """set the output file for the named service filter"""
         try:
-            pass
+            return self.doCommand(f"setsfmrl '{name}' '{fn}'")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def getsfmrl(self):
+    def getsfmrl(self, name):
+        """get the output file for then named service filter"""
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def setsffavsonly(self):
+        """Enable/disable streaming of Audio/Video/Subtitles only"""
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def getsfavsonly(self):
+        """Get whether Audio/Video/Subtitles only streaming is enabled"""
         try:
-            pass
+            return self.doCommand("getsffavsonly")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
@@ -175,42 +186,49 @@ class DVBCommand(ControlConnection):
 
     def current(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def serviceinfo(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def muxinfo(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def stats(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def festatus(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def scan(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def cancelscan(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
@@ -232,12 +250,14 @@ class DVBCommand(ControlConnection):
 
     def findlcn(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
     def selectlcn(self):
         try:
+            # TODO
             pass
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
