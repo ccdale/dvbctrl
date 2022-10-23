@@ -76,6 +76,20 @@ def test_select(dvbobj):
     dvbc.close()
 
 
+def test_setsf(dvbobj):
+    svcfilt = "testsetsf"
+    dvbc = DVBCommand()
+    dvbc.open()
+    op = dvbc.addsf(svcfilt)
+    print(f"response from addsf {op=}")
+    op = dvbc.getsf(svcfilt)
+    print(f"response from getsf {op=}")
+    op = dvbc.setsf(svcfilt, "BBC TWO")
+    assert op == "OK"
+    dvbc.rmsf(svcfilt)
+    dvbc.close()
+
+
 def test_set_get_mrl(dvbobj):
     # after 5 seconds the file should be greater than 1MB
     fn = "/tmp/test-bbc-two.ts"

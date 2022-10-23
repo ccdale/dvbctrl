@@ -6,8 +6,8 @@ from dvbctrl.errors import errorNotify
 
 
 # commands:
-#         quit - Exit the program.
-#         help - Display the list of commands or help on a specific command.
+#         quit - Exit the program. (NOT IMPLEMENTED)
+#         help - Display the list of commands or help on a specific command. (NOT IMPLEMENTED)
 #       select - Select a new service to stream.
 #       setmrl - Set the MRL of the primary service filter.
 #       getmrl - Get the primary service filter MRL.
@@ -101,6 +101,22 @@ class DVBCommand(ControlConnection):
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
+    def setsf(self, sfilter, channel):
+        """Set the service to be filtered by a service filter."""
+        try:
+            lines = self.doCommand(f"setsf {sfilter} '{channel}'")
+            return lines
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def getsf(self, sfilter):
+        """Get the service to stream to a secondary service output."""
+        try:
+            lines = self.doCommand(f"getsf {sfilter}")
+            return lines
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
     def setmrl(self, mrl):
         """set the output file for the primary service filter"""
         try:
@@ -118,7 +134,7 @@ class DVBCommand(ControlConnection):
     def addsf(self, name):
         """add a service filter by name"""
         try:
-            return self.doCommand(f"addsf '{name}'")
+            return self.doCommand(f"addsf '{name}' null://")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 

@@ -25,3 +25,20 @@ dvbs = DVBStreamer(adapter)
 if dvbs.isRunning():
     dvbs.stop()
 ```
+
+## commands
+
+```python
+from dvbctrl.commands import DVBCommand
+
+kwargs = {
+    "adapter": 0,
+    "host": "127.0.0.1"
+    "pass": "dvbctrl"
+    "user": "dvbctrl"
+}
+dvbc = DVBCommand(**kwargs)
+
+# services (channels)
+chans = dvbc.lsservices()
+```
