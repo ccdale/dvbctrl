@@ -9,10 +9,10 @@ from dvbctrl.errors import errorExit
 @pytest.fixture(scope="session")
 def dvbobj():
     try:
-        dvb = DVBStreamer(0)
+        dvb = DVBStreamer(3)
         running = dvb.start()
         if not running:
-            raise Exception("Failed to start dvbstreamer on adapter 0")
+            raise Exception("Failed to start dvbstreamer on adapter 3")
         yield dvb
         dvb.stop()
     except Exception as e:
