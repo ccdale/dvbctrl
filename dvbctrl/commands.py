@@ -23,55 +23,55 @@ from dvbctrl.errors import errorNotify
 #   lsservices - List all services or for a specific multiplex.
 #      lsmuxes - List multiplexes.
 #       lspids - List the PIDs for a specified service.
-#      current - Print out the service currently being streamed.
+#      current - Print out the service currently being streamed. (NOT IMPLEMENTED)
 #  serviceinfo - Display information about a service.
 #      muxinfo - Display information about a mux.
 #        stats - Display the stats for the PAT,PMT and service PID filters.
 #     festatus - Displays the status of the tuner.
-#     feparams - Get current frontend parameters.
-#      lsprops - List available properties.
-#      getprop - Get the value of a property.
-#      setprop - Set the value of a property.
-#     propinfo - Display information about a property.
-#      dumptsr - Dump information from the TSReader
-#       lslnbs - List known LNBs
+#     feparams - Get current frontend parameters. (NOT IMPLEMENTED)
+#      lsprops - List available properties. (NOT IMPLEMENTED)
+#      getprop - Get the value of a property. (NOT IMPLEMENTED)
+#      setprop - Set the value of a property. (NOT IMPLEMENTED)
+#     propinfo - Display information about a property. (NOT IMPLEMENTED)
+#      dumptsr - Dump information from the TSReader (NOT IMPLEMENTED)
+#       lslnbs - List known LNBs (NOT IMPLEMENTED)
 #         scan - Scan the specified multiplex(es) for services.
 #   cancelscan - Cancel the any scan that is in progress.
-#      epgdata - Register to receive EPG data in XML format.
-#         date - Display the last date/time received.
-#  enabledsmcc - Enable DSM-CC data download for the specified service filter.
-# disabledsmcc - Disable DSM-CC data download for the specified service filter.
-#    dsmccinfo - Display DSM-CC info for the specified service filter.
-# epgcaprestart - Starts or restarts the capturing of EPG content.
-#  epgcapstart - Starts the capturing of EPG content.
-#   epgcapstop - Stops the capturing of EPG content.
-#          now - Display the current program on the specified service.
-#         next - Display the next program on the specified service.
-#  addlistener - Add a destination to send event notification to.
-#   rmlistener - Remove a destination to send event notification to.
-#  lslisteners - List all registered event listener
-# addlistenevent - Add an internal event to monitor.
-# rmlistenevent - Remove an internal event to monitor
-# lslistenevents - List all registered event listener
+#      epgdata - Register to receive EPG data in XML format. (NOT IMPLEMENTED)
+#         date - Display the last date/time received. (NOT IMPLEMENTED)
+#  enabledsmcc - Enable DSM-CC data download for the specified service filter. (NOT IMPLEMENTED)
+# disabledsmcc - Disable DSM-CC data download for the specified service filter. (NOT IMPLEMENTED)
+#    dsmccinfo - Display DSM-CC info for the specified service filter. (NOT IMPLEMENTED)
+# epgcaprestart - Starts or restarts the capturing of EPG content. (NOT IMPLEMENTED)
+#  epgcapstart - Starts the capturing of EPG content. (NOT IMPLEMENTED)
+#   epgcapstop - Stops the capturing of EPG content. (NOT IMPLEMENTED)
+#          now - Display the current program on the specified service. (NOT IMPLEMENTED)
+#         next - Display the next program on the specified service. (NOT IMPLEMENTED)
+#  addlistener - Add a destination to send event notification to. (NOT IMPLEMENTED)
+#   rmlistener - Remove a destination to send event notification to. (NOT IMPLEMENTED)
+#  lslisteners - List all registered event listener (NOT IMPLEMENTED)
+# addlistenevent - Add an internal event to monitor. (NOT IMPLEMENTED)
+# rmlistenevent - Remove an internal event to monitor (NOT IMPLEMENTED)
+# lslistenevents - List all registered event listener (NOT IMPLEMENTED)
 #        lslcn - List the logical channel numbers to services.
 #      findlcn - Find the service for a logical channel number.
 #    selectlcn - Select the service from a logical channel number.
-#        addmf - Add a new destination for manually filtered PIDs.
-#         rmmf - Remove a destination for manually filtered PIDs.
+#        addmf - Add a new destination for manually filtered PIDs. (NOT IMPLEMENTED)
+#         rmmf - Remove a destination for manually filtered PIDs. (NOT IMPLEMENTED)
 #        lsmfs - List current filters.
-#     setmfmrl - Set the filter's MRL.
-#     addmfpid - Adds a PID to a filter.
-#      rmmfpid - Removes a PID from a filter.
-#     lsmfpids - List PIDs for filter.
-#    addoutput - Add a new output.
-#     rmoutput - Remove an output.
-#  enablesicap - Enable the capture of PSI/SI data.
-# disablesicap - Disable the capture of PSI/SI data.
-#    lsplugins - List loaded plugins.
-#   plugininfo - Display the information about a plugin.
-#          who - Display current control connections.
-#         auth - Login to control dvbstreamer.
-#       logout - Close the current control connection.
+#     setmfmrl - Set the filter's MRL. (NOT IMPLEMENTED)
+#     addmfpid - Adds a PID to a filter. (NOT IMPLEMENTED)
+#      rmmfpid - Removes a PID from a filter. (NOT IMPLEMENTED)
+#     lsmfpids - List PIDs for filter. (NOT IMPLEMENTED)
+#    addoutput - Add a new output. (NOT IMPLEMENTED)
+#     rmoutput - Remove an output. (NOT IMPLEMENTED)
+#  enablesicap - Enable the capture of PSI/SI data. (NOT IMPLEMENTED)
+# disablesicap - Disable the capture of PSI/SI data. (NOT IMPLEMENTED)
+#    lsplugins - List loaded plugins. (NOT IMPLEMENTED)
+#   plugininfo - Display the information about a plugin. (NOT IMPLEMENTED)
+#          who - Display current control connections. (NOT IMPLEMENTED)
+#         auth - Login to control dvbstreamer. (NOT IMPLEMENTED)
+#       logout - Close the current control connection. (NOT IMPLEMENTED)
 
 
 class DVBCommand(ControlConnection):
@@ -166,7 +166,7 @@ class DVBCommand(ControlConnection):
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def setsffavsonly(self, name, on=True):
+    def setsfavsonly(self, name, on=True):
         """Enable/disable streaming of Audio/Video/Subtitles only for the named service filter"""
         try:
             onoff = "on" if on else "off"
