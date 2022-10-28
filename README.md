@@ -1,5 +1,8 @@
 # dvbctrl
 
+Module to control a local [dvbstreamer](http://sourceforge.net/projects/dvbstreamer/).  On Arch you can install dvbstreamer from
+the [AUR](https://aur.archlinux.org/packages/dvbstreamer).
+
 ## starting
 
 ```python
