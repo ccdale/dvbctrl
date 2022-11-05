@@ -3,7 +3,7 @@ from dvbctrl.connection import ControlConnection
 
 
 def test_version():
-    assert __version__ == "0.3.4"
+    assert __version__ == "0.3.5"
 
 
 def test_isrunning(dvbobj):
