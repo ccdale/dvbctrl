@@ -11,7 +11,7 @@ def test_isrunning(dvbobj):
 
 
 def test_connect(dvbobj):
-    cc = ControlConnection(0)
+    cc = ControlConnection(3)
     cc.open()
     assert cc.opened == True
     assert cc.welcomemsg == "Ready"

@@ -108,3 +108,11 @@ def test_set_get_mrl(dvbobj):
     sz = os.stat(fn).st_size
     assert sz > 1024000
     os.unlink(fn)
+
+
+def test_waitTuned(dvbobj):
+    dvbc = DVBCommand(3)
+    dvbc.open()
+    lines = dvbc.select("BBC TWO")
+    res = dvbc.isTuned()
+    assert res == True
