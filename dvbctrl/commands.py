@@ -239,13 +239,7 @@ class DVBCommand(ControlConnection):
         try:
             cmd = f"select '{channel}'"
             lines = self.doCommand(cmd)
-            locked = False
-            wait = 5
-            cn = 0
-            while not locked:
-                time.sleep(1)
-                cn += 1
-                lines = self.festatus()
+            return self.waitTuned()
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 

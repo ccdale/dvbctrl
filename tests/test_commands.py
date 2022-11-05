@@ -116,3 +116,10 @@ def test_waitTuned(dvbobj):
     lines = dvbc.select("BBC TWO")
     res = dvbc.isTuned()
     assert res == True
+
+
+def test_tuneToChannel(dvbobj):
+    dvbc = DVBCommand(3)
+    dvbc.open()
+    res = dvbc.tuneToChannel("BBC TWO")
+    assert res == True
