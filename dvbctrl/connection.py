@@ -22,7 +22,7 @@ class ControlConnection:
                 host = os.uname().nodename
             host = "127.0.0.1"
             self.host = host
-            self.adapter = adapter
+            self.adapter = int(adapter)
             self.opened = False
             self.authenticated = False
             self.welcomemsg = None
