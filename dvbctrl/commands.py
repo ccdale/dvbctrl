@@ -1,5 +1,6 @@
 """commands module for dvbstreamer control."""
 import sys
+import time
 
 from dvbctrl.connection import ControlConnection
 from dvbctrl.errors import errorNotify
@@ -227,5 +228,64 @@ class DVBCommand(ControlConnection):
         try:
             cmd = "lsmfs"
             return self.doCommand(cmd)
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def tuneToChannel(self, channel):
+        """Tunes this dvbstreamer to a channel
+
+        Ensures it is tuned and locked
+        """
+        try:
+            cmd = f"select '{channel}'"
+            lines = self.doCommand(cmd)
+            locked = False
+            wait = 5
+            cn = 0
+            while not locked:
+                time.sleep(1)
+                cn += 1
+                lines = self.festatus()
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def isTuned(self):
+        """Returns True if tuned, False otherwise"""
+        try:
+            lines = self.festatus()
+            finds = ["Signal", "Lock", "Carrier", "VITERBI", "Sync"]
+            val = 0
+            for find in finds:
+                val = self.isThere(lines[0], find, val)
+            tuned = True if val == 5 else False
+            return tuned
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def waitTuned(self):
+        """Waits up to 5 seconds for the streamer to tune"""
+        try:
+            cn = 0
+            wait = 5
+            tuned = self.isTuned()
+            while not tuned:
+                time.sleep(1)
+                cn += 1
+                if cn >= wait:
+                    break
+                tuned = self.isTuned()
+            return tuned
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
+    def isThere(self, xstr, find, val):
+        """is find in xstr, if so, increment val
+
+        returns val
+        """
+        try:
+            if find in xstr:
+                val += 1
+            return val
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)

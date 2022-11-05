@@ -46,6 +46,12 @@ dvbc = DVBCommand(**kwargs)
 chans = dvbc.lsservices()
 ```
 
+## ad-hoc commands
+
+1. isTuned()   - returns True if tuned, False otherwise
+1. waitTuned() - waits for up to 5 seconds for the streamer to tune
+                 returns True if tuned successfully, False otherwise
+
 ## dvbctrl commands
 
 1.       select - Select a new service to stream.
