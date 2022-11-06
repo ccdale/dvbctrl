@@ -70,6 +70,7 @@ chans = dvbc.lsservices()
 * `lsservices` List all services or for a specific multiplex.
 * `lsmuxes` List multiplexes.
 * `lspids` List the PIDs for a specified service.
+* `current` Print out the service currently being streamed.
 * `serviceinfo` Display information about a service.
 * `muxinfo` Display information about a mux.
 * `stats` Display the stats for the PAT,PMT and service PID filters.
@@ -79,10 +80,10 @@ chans = dvbc.lsservices()
 * `lslcn` List the logical channel numbers to services.
 * `findlcn` Find the service for a logical channel number.
 * `selectlcn` Select the service from a logical channel number.
+* `lsmfs` List current filters.
 
 ### dvbctrl commands not yet implemented
 
-* `current` Print out the service currently being streamed. (NOT IMPLEMENTED)
 * `feparams` Get current frontend parameters. (NOT IMPLEMENTED)
 * `lsprops` List available properties. (NOT IMPLEMENTED)
 * `getprop` Get the value of a property. (NOT IMPLEMENTED)
@@ -108,7 +109,6 @@ chans = dvbc.lsservices()
 * `lslistenevents` List all registered event listener (NOT IMPLEMENTED)
 * `addmf` Add a new destination for manually filtered PIDs. (NOT IMPLEMENTED)
 * `rmmf` Remove a destination for manually filtered PIDs. (NOT IMPLEMENTED)
-* `lsmfs` List current filters.
 * `setmfmrl` Set the filter's MRL. (NOT IMPLEMENTED)
 * `addmfpid` Adds a PID to a filter. (NOT IMPLEMENTED)
 * `rmmfpid` Removes a PID from a filter. (NOT IMPLEMENTED)
