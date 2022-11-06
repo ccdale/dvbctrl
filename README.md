@@ -79,6 +79,9 @@ chans = dvbc.lsservices()
 * `lslcn` List the logical channel numbers to services.
 * `findlcn` Find the service for a logical channel number.
 * `selectlcn` Select the service from a logical channel number.
+
+### dvbctrl commands not yet implemented
+
 * `current` Print out the service currently being streamed. (NOT IMPLEMENTED)
 * `feparams` Get current frontend parameters. (NOT IMPLEMENTED)
 * `lsprops` List available properties. (NOT IMPLEMENTED)
