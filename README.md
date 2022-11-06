@@ -46,7 +46,33 @@ dvbc = DVBCommand(**kwargs)
 chans = dvbc.lsservices()
 ```
 
-## recorder commands
+## recorder
+
+A simple interface to dvbctrl to easily record to files from channels.  Utilises the primary service filter only.
+
+```
+from dvbctrl.recorder import Recorder
+
+# initialise the recorder
+r = Recorder("BBC TWO", "/tmp/bbc_two.ts", adapter=0)
+
+# start the recorder, this checks that the file is growing
+r.start()
+
+...
+
+# stop the recording
+r.stop()
+```
+
+You can periodically check that the recording file is still growing by using the check function, passing in the last file size.
+This returns a tuple containing a True/False flag and the current size.  If the flag is False (i.e. the file isn't growing or is
+not there) then the lastsize argument is returned.
+
+```
+isok, currentsize = r.check(12345)
+```
+## dvbctrl recorder commands
 
 * `tuneToChannel()` Tunes the dvbstreamer to a channel will wait up to 5 seconds for dvbstreamer to stabilise. Returns True if
   tuned or False otherwise

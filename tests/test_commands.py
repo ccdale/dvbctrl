@@ -5,7 +5,7 @@ from dvbctrl.commands import DVBCommand
 
 
 def test_lslcn(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     chans = dvbc.lslcn()
     assert True == isinstance(chans, list)
@@ -14,7 +14,7 @@ def test_lslcn(dvbobj):
 
 
 def test_lsmfs_nofilters(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.lsmfs()
     assert lines == []
@@ -22,7 +22,7 @@ def test_lsmfs_nofilters(dvbobj):
 
 
 def test_lsservices_no_mux(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.lsservices()
     assert True == isinstance(lines, list)
@@ -31,7 +31,7 @@ def test_lsservices_no_mux(dvbobj):
 
 
 def test_lsservices_mux(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.lsservices(1653391414)
     assert True == isinstance(lines, list)
@@ -40,7 +40,7 @@ def test_lsservices_mux(dvbobj):
 
 
 def test_lsmuxes(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.lsmuxes()
     assert True == isinstance(lines, list)
@@ -49,7 +49,7 @@ def test_lsmuxes(dvbobj):
 
 
 def test_lssfs(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.lssfs()
     assert True == isinstance(lines, list)
@@ -58,7 +58,7 @@ def test_lssfs(dvbobj):
 
 
 def test_lspids(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.lspids("5STAR")
     assert True == isinstance(lines, list)
@@ -67,7 +67,7 @@ def test_lspids(dvbobj):
 
 
 def test_select(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.select("BBC TWO")
     print(f"{lines=}")
@@ -78,7 +78,7 @@ def test_select(dvbobj):
 
 def test_setsf(dvbobj):
     svcfilt = "testsetsf"
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     op = dvbc.addsf(svcfilt)
     print(f"response from addsf {op=}")
@@ -95,7 +95,7 @@ def test_setsf(dvbobj):
 def test_set_get_mrl(dvbobj):
     # after 5 seconds the file should be greater than 1MB
     fn = "/tmp/test-bbc-two.ts"
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.select("BBC TWO")
     lines = dvbc.setmrl(f"file://{fn}")
@@ -111,7 +111,7 @@ def test_set_get_mrl(dvbobj):
 
 
 def test_waitTuned(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     lines = dvbc.select("BBC TWO")
     res = dvbc.isTuned()
@@ -119,7 +119,7 @@ def test_waitTuned(dvbobj):
 
 
 def test_tuneToChannel(dvbobj):
-    dvbc = DVBCommand(3)
+    dvbc = DVBCommand(dvbobj.adapter)
     dvbc.open()
     res = dvbc.tuneToChannel("BBC TWO")
     assert res == True

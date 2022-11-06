@@ -3,6 +3,7 @@ import sys
 import time
 
 from dvbctrl.commands import DVBCommand
+from dvbctrl.errors import errorNotify
 
 
 class Recorder:
@@ -19,11 +20,11 @@ class Recorder:
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def open(self):
+    def _open(self):
         try:
-            if not self.dvbc.opened():
+            if not self.dvbc.opened:
                 self.dvbc.open()
-                if not self.dvbc.opened():
+                if not self.dvbc.opened:
                     raise Exception(
                         f"Failed to open dvbctrl on adapter {self.dvbc.adapter}"
                     )
@@ -33,7 +34,7 @@ class Recorder:
 
     def start(self):
         try:
-            if not self.open():
+            if not self._open():
                 raise Exception(
                     f"Failed to open dvbctrl on adapter {self.dvbc.adapter}"
                 )
@@ -53,11 +54,11 @@ class Recorder:
 
     def stop(self):
         try:
-            if not self.open():
+            if not self._open():
                 raise Exception(
                     f"Failed to open dvbctrl on adapter {self.dvbc.adapter}"
                 )
-            self.dvbc.setmrl("null://")
+            return self.dvbc.setmrl("null://")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 

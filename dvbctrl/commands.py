@@ -17,9 +17,10 @@ class DVBCommand(ControlConnection):
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
-    def setStatus():
+    def getStatus(self):
         try:
             # TODO
+            # if self.isTuned():
             lines = self.festatus()
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
