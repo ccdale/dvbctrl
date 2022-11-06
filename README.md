@@ -46,7 +46,7 @@ dvbc = DVBCommand(**kwargs)
 chans = dvbc.lsservices()
 ```
 
-## ad-hoc commands
+## recorder commands
 
 * `tuneToChannel()` Tunes the dvbstreamer to a channel will wait up to 5 seconds for dvbstreamer to stabilise. Returns True if
   tuned or False otherwise
