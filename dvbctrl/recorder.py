@@ -32,6 +32,12 @@ class Recorder:
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
 
+    def _close(self):
+        try:
+            self.dvbc.close()
+        except Exception as e:
+            errorNotify(sys.exc_info()[2], e)
+
     def start(self):
         try:
             if not self._open():
@@ -51,6 +57,8 @@ class Recorder:
             return False
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
+        finally:
+            self._close()
 
     def stop(self):
         try:
@@ -61,6 +69,8 @@ class Recorder:
             return self.dvbc.setmrl("null://")
         except Exception as e:
             errorNotify(sys.exc_info()[2], e)
+        finally:
+            self._close()
 
     def check(self, lastsize):
         try:
